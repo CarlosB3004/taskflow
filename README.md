@@ -72,3 +72,51 @@ PATCH /tasks/:id  actualizar una tarea
 DELETE /tasks/:id eliminar una tarea
 
 La API concreta se elegirá posteriormente. Estas rutas representan las operaciones previstas y todavía no corresponden a un servidor conectado.
+
+## API de tareas
+
+Para el Codelab 07 conecté TaskFlow con JSONPlaceholder, una API REST pública que proporciona datos de prueba. Utilicé Dio para realizar las peticiones HTTP y obtener las tareas que se muestran en la aplicación.
+
+### URL y consulta utilizada
+
+- URL base: https://jsonplaceholder.typicode.com
+- Endpoint: `/todos`
+- Método HTTP: `GET`
+- Parámetro de consulta: `userId=2`
+- URL completa: https://jsonplaceholder.typicode.com/todos?userId=2
+
+Primero trabajé con el usuario 1 para comprobar la conexión. Después cambié el valor de `userId` a 2 y verifiqué que la aplicación mostrara tareas diferentes.
+
+### Datos recibidos de la API
+
+La respuesta JSON contiene cuatro campos:
+
+- `userId`: identificador del usuario.
+- `id`: identificador de la tarea.
+- `title`: título de la tarea.
+- `completed`: indica si la tarea está completada.
+
+### Valores predeterminados
+
+Mi modelo `Task` tiene seis propiedades, pero la API solo proporciona cuatro campos. Por eso, TaskFlow completa los datos faltantes con estos valores:
+
+- `description`: Sin descripción (API).
+- `priority`: Sin prioridad (API).
+
+Además, el campo `completed` de la API se convierte en `isCompleted` dentro del modelo de TaskFlow.
+
+### Arquitectura utilizada
+
+La aplicación mantiene la arquitectura MVVM con Provider.
+
+El servicio `TaskApiService` realiza la consulta HTTP mediante Dio. El repositorio `RemoteTaskRepository` obtiene las tareas del servicio. El modelo `Task` convierte los datos JSON y el `TasksViewModel` notifica a la interfaz cuando termina la carga.
+
+También conservé `LocalTaskRepository` con las cinco tareas académicas de la sesión anterior como respaldo.
+
+### Actualización del estado de las tareas
+
+Actualmente puedo marcar una tarea como completada o pendiente desde su pantalla de detalle.
+
+Sin embargo, este cambio se realiza únicamente en memoria. JSONPlaceholder se utiliza como API de práctica y TaskFlow todavía no guarda estos cambios permanentemente en el servidor.
+
+Al reiniciar la aplicación, las tareas recuperan el estado que devuelve la API.
