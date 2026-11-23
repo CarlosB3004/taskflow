@@ -1,13 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:taskflow/main.dart';
+import 'package:provider/provider.dart';
+import 'package:taskflow/app/taskflow_app.dart';
+import 'package:taskflow/features/tasks/data/local_task_repository.dart';
+import 'package:taskflow/features/tasks/presentation/tasks_view_model.dart';
 
 void main() {
   testWidgets('TaskFlow muestra el listado de tareas', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(const TaskFlowApp());
+    final repository = LocalTaskRepository();
+
+    await tester.pumpWidget(
+      ChangeNotifierProvider<TasksViewModel>(
+        create: (_) => TasksViewModel(repository),
+        child: const TaskFlowApp(),
+      ),
+    );
 
     expect(find.text('Mis tareas'), findsOneWidget);
-    expect(find.text('Completar Codelab 05'), findsOneWidget);
+    expect(find.text('Leer documentación'), findsOneWidget);
   });
 }
