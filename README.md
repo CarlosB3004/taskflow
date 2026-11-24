@@ -120,3 +120,56 @@ Actualmente puedo marcar una tarea como completada o pendiente desde su pantalla
 Sin embargo, este cambio se realiza únicamente en memoria. JSONPlaceholder se utiliza como API de práctica y TaskFlow todavía no guarda estos cambios permanentemente en el servidor.
 
 Al reiniciar la aplicación, las tareas recuperan el estado que devuelve la API.
+
+
+## Sesión 8 - Estados de la lista remota
+
+En esta sesión mejoré la aplicación TaskFlow para mostrar
+los diferentes estados de una consulta a la API REST,
+manteniendo la arquitectura MVVM.
+
+### Estados de la aplicación
+
+- **Carga:** utilicé la opción 3G de las herramientas de
+  desarrollador de Chrome para reducir la velocidad de
+  conexión y observar el indicador de carga. Durante este
+  proceso, el botón de actualización permanece deshabilitado.
+
+- **Éxito:** con una conexión a internet y el userId = 2,
+  la aplicación muestra las tareas obtenidas desde la API.
+  También comprobé que se puede acceder al detalle de una
+  tarea desde el listado.
+
+- **Vacío:** cambié temporalmente el userId a 9999 en
+  TaskApiService. La API devolvió una lista vacía y la
+  aplicación mostró un mensaje con una opción para
+  actualizar las tareas.
+
+- **Error:** utilicé la opción Offline de Chrome DevTools
+  y presioné el botón de actualización. La aplicación
+  mostró un mensaje de error y el botón Reintentar.
+
+### Prueba de reintento
+
+Restablecí la conexión seleccionando No throttling y
+presioné el botón Reintentar. La aplicación recuperó el
+listado de tareas sin necesidad de reiniciarse.
+
+### Personalización
+
+Personalicé los mensajes de error y lista vacía, así como
+los textos de las acciones de actualización, conservando
+el funcionamiento del listado remoto y la navegación
+al detalle.
+
+### Configuración final
+
+- API: JSONPlaceholder.
+- Endpoint: https://jsonplaceholder.typicode.com/todos?userId=2
+- Usuario: 2.
+- Arquitectura: MVVM con Provider.
+- Cliente HTTP: Dio.
+
+Después de realizar las pruebas, restauré el userId a 2.
+Los cambios de estado de las tareas siguen siendo locales
+y pueden perderse al consultar nuevamente la API.
