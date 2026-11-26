@@ -173,3 +173,44 @@ al detalle.
 Después de realizar las pruebas, restauré el userId a 2.
 Los cambios de estado de las tareas siguen siendo locales
 y pueden perderse al consultar nuevamente la API.
+
+
+## Sesión 9 - Formulario de tareas
+
+En esta sesión incorporé un formulario para preparar
+nuevas tareas en TaskFlow, manteniendo la arquitectura
+MVVM y los avances de las sesiones anteriores.
+
+### Funcionalidades implementadas
+
+- Formulario con título, descripción y prioridad.
+- Validación de título obligatorio.
+- Validación de mínimo 3 caracteres en el título.
+- Selector de prioridad: Alta, Media y Baja.
+- Navegación mediante la ruta /new.
+- Botón flotante para abrir el formulario.
+- Retorno de los datos mediante TaskDraft.
+- Mensaje de confirmación mediante SnackBar.
+
+### Trabajo autónomo incremental
+
+Personalicé los mensajes de validación del título
+e incorporé un selector de fecha mediante showDatePicker.
+
+La fecha es opcional, por lo que el usuario puede
+guardar el formulario sin seleccionarla.
+
+### Pruebas realizadas
+
+- Validación de título vacío.
+- Validación de título de dos caracteres.
+- Retorno de un formulario válido.
+- Guardar el formulario sin seleccionar una fecha.
+
+### Alcance de la sesión
+
+El formulario devuelve un borrador temporal a la
+pantalla del listado. Todavía no crea registros en
+la API REST, ya que la petición POST se implementará
+en la sesión 10.
+
